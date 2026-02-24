@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vacancies | Synergy Ramatla</title>
+
+<link rel="stylesheet" href="vacancies.css">
+<link rel="shortcut icon" href="logo.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+<style>
+/* ===== VACANCIES PAGE ===== */
+.vacancies-hero {
+  background: rgba(30,30,50,0.85);
+  color: #fff;
+  padding: 5px 3px;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.vacancies-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #00ff00;
+}
+
+.vacancies-hero p {
+  max-width: 700px;
+  margin: auto;
+  opacity: 0.95;
+}
+
+.vacancies-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 50px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.vacancy-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vacancy-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+.vacancy-card h3 {
+  color: #0a58ca;
+  margin-bottom: 10px;
+}
+
+.vacancy-meta {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.vacancy-meta i {
+  margin-right: 6px;
+}
+
+.vacancy-card p {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.apply-btn {
+  margin-top: 20px;
+  background: #0a58ca;
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+  background: #084298;
+}
+
+/* Empty state */
+.no-vacancies {
+  text-align: center;
+  grid-column: 1 / -1;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Page Loader Overlay */
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Hide loader */
+#page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #0a58ca;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.create-btn {
+    background: #1a73e8;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Table Card */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 20px;
+}
+
+/* Controls */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.table-controls select,
+.table-controls input {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #1a73e8;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background: #f1f5ff;
+}
+
+/* Actions */
+.action-btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 4px;
+}
+
+.edit {
+    background: #6c757d;
+    color: #fff;
+}
+
+.delete {
+    background: #dc3545;
+    color: #fff;
+}
+
+.download {
+    color: #1a73e8;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 6px 10px;
+    margin-left: 4px;
+    background: #e9ecef;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination a.active {
+    background: #1a73e8;
+    color: #fff;
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- Page Loader -->
+<div id="page-loader">
+  <div class="spinner"></div>
+</div>
+
+
+  <!--Network Canvas-->
+
+  <canvas id="networkCanvas"></canvas>
+
+<!-- Navbar (same as index.html) -->
+<nav class="navbar">
+  <div class="brand">
+    <a href="index.html">
+      <img src="logo.ico" alt="Logo" width="80">
+    </a>
+    <!--<h1>Synergy Ramatla</h1>-->
+  </div>
+  <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="services.html"><i class="fas fa-briefcase"></i> Services</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="insights.html"><i class="fas fa-newspaper"></i> News</a>
+    <a href="vacancies.html"><i class="fas fa-info-circle"></i> Vacancies</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="vacancies-hero">
+  <h1>Current Vacancies</h1>
+  <p>Join TM Squared and be part of an innovative, technology-driven team.</p>
+</section>
+
+<div class="page-header">
+    <h2>List of Vacancies</h2>
+</div>
+
+<div class="card">
+
+    <div class="table-controls">
+    Show
+    <select id="entriesSelect">
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+    </select>
+    entries
+    <input type="text" id="searchInput" placeholder="Search jobs..." />
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Vacancy Title</th>
+            <th>Date Posted</th>
+            <th>Applications</th>
+            <th>Details</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody id="vacancyTableBody">
+        <!-- All rows go here 
+        <tr><td>01</td><td>ICT Support Technician</td><td>29-01-25</td><td>52</td><td><a href="vacancy-details.html?id=1" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>02</td><td>Office Administrator</td><td>02-02-25</td><td>36</td><td><a href="vacancy-details.html?id=2" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>03</td><td>Network Technician</td><td>12-02-25</td><td>18</td><td><a href="vacancy-details.html?id=3" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>04</td><td>Financial Accountant</td><td>12-02-25</td><td>18</td><td><a href="vacancy-details.html?id=4" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>05</td><td>HR Manager</td><td>14-02-25</td><td>24</td><td><a href="vacancy-details.html?id=5" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>06</td><td>Marketing Officer</td><td>16-02-25</td><td>15</td><td><a href="vacancy-details.html?id=6" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>07</td><td>Sales Executive</td><td>18-02-25</td><td>20</td><td><a href="vacancy-details.html?id=7" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>08</td><td>Technical Writer</td><td>20-02-25</td><td>8</td><td><a href="vacancy-details.html?id=8" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>09</td><td>Graphic Designer</td><td>22-02-25</td><td>12</td><td><a href="vacancy-details.html?id=9" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>10</td><td>Database Administrator</td><td>24-02-25</td><td>19</td><td><a href="vacancy-details.html?id=10" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>11</td><td>Cloud Engineer</td><td>26-02-25</td><td>14</td><td><a href="vacancy-details.html?id=11" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <tr><td>12</td><td>IT Project Manager</td><td>28-02-25</td><td>22</td><td><a href="vacancy-details.html?id=12" class="download">View</a></td><td><a href="#" class="action-btn edit">Edit</a> <a href="#" class="action-btn delete">Delete</a></td></tr>
+        <!-- Add more as needed-->
+    </tbody>
+</table>
+
+<div class="pagination" id="pagination">
+  <a href="#" id="prev">«</a>
+  <span id="pageNumbers"></span>
+  <a href="#" id="next">»</a>
+</div>
+
+
+</div>
+
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-bottom">
+    <p>© 2023 TM Squared. All rights reserved.</p>
+  </div>
+</footer>
+
+<!--Canvas Animation-->
+
+  <script>
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Full-page sizing
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const nodesCount = 100;
+    const maxDistance = 150;
+
+    const nodes = [];
+
+    // Initialize nodes
+    for (let i = 0; i < nodesCount; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        radius: Math.random() * 3 + 1.5
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw nodes
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        // Bounce from edges
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ffff';
+        ctx.fill();
+      });
+
+      // Draw lines between nearby nodes
+      for (let i = 0; i < nodesCount; i++) {
+        for (let j = i + 1; j < nodesCount; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < maxDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0, 255, 255, ${1 - distance / maxDistance})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Update canvas on resize
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
+
+<script>
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Fade-in on scroll
+  const items = document.querySelectorAll('.about-content ul li');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('fade-in');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  items.forEach(item => {
+    observer.observe(item);
+  });
+</script>
+
+<!--Page Loader-->
+<script>
+  // Hide loader after page fully loads
+  window.addEventListener("load", () => {
+    document.getElementById("page-loader").classList.add("hidden");
+  });
+
+  // Show loader when navigating to another page
+  document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", event => {
+      const href = link.getAttribute("href");
+
+      // Ignore empty links, anchors, and external targets
+      if (!href || href.startsWith("#") || link.target === "_blank") return;
+
+      event.preventDefault();
+      document.getElementById("page-loader").classList.remove("hidden");
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
+    });
+  });
+</script>
+
+<!-- Search Bar WORK (Client-Side)-->
+<!--Pagination-->
+
+<script>const rows = document.querySelectorAll("tbody tr");</script>
+
+<script>
+let currentPage = 1;
+let rowsPerPage = 10; // default
+const MAX_PER_PAGE = 50;
+
+const tableBody = document.querySelector("tbody");
+const allRows = Array.from(tableBody.querySelectorAll("tr"));
+
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const pageNumbersContainer = document.getElementById("pageNumbers");
+const entriesSelect = document.getElementById("entriesSelect");
+
+// Empty state row
+const emptyRow = document.createElement("tr");
+emptyRow.innerHTML = `
+  <td colspan="6" class="no-vacancies">
+    No vacancies available on this page.
+  </td>
+`;
+
+// Set rows per page
+function setRowsPerPage(value) {
+  rowsPerPage = Math.min(parseInt(value), MAX_PER_PAGE);
+  currentPage = 1;
+  renderTable();
+}
+
+// Render table rows for current page
+function renderTable() {
+  tableBody.innerHTML = "";
+  const totalPages = Math.ceil(allRows.length / rowsPerPage) || 1;
+
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageRows = allRows.slice(start, end);
+
+  if (pageRows.length === 0) {
+    tableBody.appendChild(emptyRow);
+  } else {
+    pageRows.forEach(row => tableBody.appendChild(row));
+  }
+
+  // Update arrows
+  prevBtn.style.pointerEvents = currentPage === 1 ? "none" : "auto";
+  prevBtn.style.opacity = currentPage === 1 ? "0.5" : "1";
+  nextBtn.style.pointerEvents = currentPage === totalPages ? "none" : "auto";
+  nextBtn.style.opacity = currentPage === totalPages ? "0.5" : "1";
+
+  renderPageNumbers(totalPages);
+}
+
+// Render page number buttons
+function renderPageNumbers(totalPages) {
+  pageNumbersContainer.innerHTML = "";
+  const PAGE_DISPLAY_LIMIT = 5; // max page buttons visible
+
+  let startPage = Math.max(1, currentPage - Math.floor(PAGE_DISPLAY_LIMIT / 2));
+  let endPage = startPage + PAGE_DISPLAY_LIMIT - 1;
+
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(1, endPage - PAGE_DISPLAY_LIMIT + 1);
+  }
+
+  // First page + ellipsis
+  if (startPage > 1) {
+    addPageButton(1);
+    if (startPage > 2) addEllipsis();
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
+    addPageButton(i);
+  }
+
+  // Ellipsis + last page
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) addEllipsis();
+    addPageButton(totalPages);
+  }
+}
+
+// Add a page button
+function addPageButton(page) {
+  const btn = document.createElement("a");
+  btn.href = "#";
+  btn.textContent = page;
+  if (page === currentPage) btn.classList.add("active");
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    currentPage = page;
+    renderTable();
+  });
+  pageNumbersContainer.appendChild(btn);
+}
+
+// Add ellipsis
+function addEllipsis() {
+  const ellipsis = document.createElement("span");
+  ellipsis.textContent = "…";
+  ellipsis.style.margin = "0 4px";
+  pageNumbersContainer.appendChild(ellipsis);
+}
+
+// Arrow buttons
+prevBtn.addEventListener("click", e => {
+  e.preventDefault();
+  if (currentPage > 1) {
+    currentPage--;
+    renderTable();
+  }
+});
+
+nextBtn.addEventListener("click", e => {
+  e.preventDefault();
+  const totalPages = Math.ceil(allRows.length / rowsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderTable();
+  }
+});
+
+// Change rows per page
+entriesSelect.addEventListener("change", function() {
+  setRowsPerPage(this.value);
+});
+
+// Initial render
+setRowsPerPage(entriesSelect.value || 10);
+</script>
+
+</body>
+</html>

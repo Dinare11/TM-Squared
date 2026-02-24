@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TM Squared</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="logo.ico">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0a0f1c;
+    color: #fff;
+}
+
+
+#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: darkred;
+}
+
+/* NAV */
+     .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    position: relative;
+  }
+
+    .nav-wrap{
+      background:linear-gradient(90deg,#ffffffcc, #f8fbff);
+      position:sticky;
+      top:0;
+      z-index:40;
+      border-bottom:1px solid rgba(15,23,42,0.04)}
+
+    .container{max-width:var(--container);
+      margin:0 auto;
+      padding:18px 20px}
+
+    nav{display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px}
+
+     .brand img {
+    width: 85px;
+    height: 85px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+    .brand{font-weight:700;
+      letter-spacing:0.2px;
+      color:white}
+
+    .nav-links{display:flex;
+      gap:18px;
+      align-items:center}
+
+    .nav-links a{color:inherit;
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:600}
+
+    .nav-links a:hover{background:rgba(59,130,246,0.08);
+      color: #ffdd57;}
+
+/*Social Icons Hover*/
+ .social-icons a {
+    color: white;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+
+  .social-icons a:hover {
+    color: #ffdd57;
+  }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+
+}
+
+/* Page Loader Overlay */
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Hide loader */
+#page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+footer {
+    background: darkred;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+header {
+    background: #111827;
+    padding: 15px;
+    text-align: center;
+    color: #00f0ff;
+}
+
+.kpi-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.kpi {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.critical { background: #7f1d1d; }
+.high { background: #b91c1c; }
+.medium { background: #854d0e; }
+.low { background: #065f46; }
+
+.charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #1f2937;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.live-feed {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #374151;
+}
+
+th {
+    background: #111827;
+}
+
+</style>
+
+<style>
+canvas { background:#0f1a2f; border-radius:10px; padding:10px; }
+
+/*Hamburger Menu*/
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+      margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+       canvas {
+      display: none !important;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: 70px;
+      right: 0;
+      background-color: #1a73e8;
+      flex-direction: column;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+    }
+
+    .nav-links a {
+      padding: 15px 20px;
+    }
+
+    .nav-links.active {
+      max-height: 500px;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+  /* Footer */
+  footer {
+    padding: 15px;
+    font-size: 13px;
+  }
+
+    /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Navbar spacing */
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .brand img {
+    width: 85px;
+    height: 85px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+  /* Header resize */
+  header {
+    padding: 12px 10px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  header p {
+    font-size: 14px;
+  }
+
+  /* KPI Section */
+  .kpi-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .kpi {
+    padding: 15px;
+  }
+
+  .kpi h2 {
+    font-size: 18px;
+  }
+
+  .kpi p {
+    font-size: 13px;
+  }
+
+  /* Charts Section */
+  .charts {
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Live Feed Table Scroll */
+  .live-feed {
+    padding: 15px;
+  }
+
+  .live-feed table {
+    min-width: 650px; /* Enables horizontal scroll instead of breaking layout */
+  }
+
+  .live-feed {
+    overflow-x: auto;
+  }
+
+  th, td {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 15px;
+    font-size: 13px;
+  }
+
+  }
+
+    .insight-card { flex-direction: column; align-items: flex-start; }
+    .brand{font-size:15px}
+    .hero h1{font-size:20px}
+    header h1 { font-size:18px; }
+
+footer {
+    background: darkred;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+    /* Small helpers */
+    .muted{color:var(--muted)}
+</style>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="brand">
+    <a href="index.html">
+    <img src="logo.ico" alt="Logo" width="80">
+  </a>
+    <!--<h1>TM Squared</h1>-->
+  </div>
+  <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="services.html"><i class="fas fa-briefcase"></i> Services</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="insights.html"><i class="fas fa-newspaper"></i> News</a>
+    <a href="vacancies.html"><i class="fas fa-info-circle"></i> Vacancies</a>
+  </div>
+</nav>
+
+<header>
+    <h1>Cybersecurity Insights Dashboard</h1>
+    <p>Live threat updates and security alerts</p>
+</header>
+
+<section class="kpi-section">
+    <div class="kpi critical">
+        <h2 id="criticalCount">0</h2>
+        <p>Critical Alerts</p>
+    </div>
+    <div class="kpi high">
+        <h2 id="highCount">0</h2>
+        <p>High Alerts</p>
+    </div>
+    <div class="kpi medium">
+        <h2 id="mediumCount">0</h2>
+        <p>Medium Alerts</p>
+    </div>
+    <div class="kpi low">
+        <h2 id="lowCount">0</h2>
+        <p>Low Alerts</p>
+    </div>
+</section>
+
+<section class="charts">
+    <div class="card">
+        <h3>24 Hour Attack Trend</h3>
+        <canvas id="trendChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h3>Severity Distribution</h3>
+        <canvas id="severityChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h3>Device Risk Distribution</h3>
+        <canvas id="deviceChart"></canvas>
+    </div>
+</section>
+
+<section class="live-feed">
+    <h3>Live Attack Feed</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Source IP</th>
+                <th>Target Device</th>
+                <th>Attack Type</th>
+                <th>Severity</th>
+            </tr>
+        </thead>
+        <tbody id="attackTable"></tbody>
+    </table>
+</section>
+
+<footer>
+    <p>© 2023 TM Squared. All rights reserved.</p>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  })
+</script>
+
+<script>
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const attackTypes = ["Malware", "Phishing", "DDoS", "Ransomware", "Brute Force"];
+const devices = ["Firewall", "Web Server", "Database", "Workstation-12", "Mail Server"];
+const severities = ["Critical", "High", "Medium", "Low"];
+
+function randomIP() {
+    return `${random(1,255)}.${random(1,255)}.${random(1,255)}.${random(1,255)}`;
+}
+
+function updateKPIs() {
+    document.getElementById("criticalCount").innerText = random(5,20);
+    document.getElementById("highCount").innerText = random(10,30);
+    document.getElementById("mediumCount").innerText = random(20,50);
+    document.getElementById("lowCount").innerText = random(30,70);
+}
+
+function addAttackRow() {
+    const table = document.getElementById("attackTable");
+    const row = table.insertRow(0);
+    row.innerHTML = `
+        <td>${new Date().toLocaleTimeString()}</td>
+        <td>${randomIP()}</td>
+        <td>${devices[random(0, devices.length-1)]}</td>
+        <td>${attackTypes[random(0, attackTypes.length-1)]}</td>
+        <td>${severities[random(0, severities.length-1)]}</td>
+    `;
+    if (table.rows.length > 10) table.deleteRow(10);
+}
+
+const trendChart = new Chart(document.getElementById("trendChart"), {
+    type: 'line',
+    data: {
+        labels: Array.from({length:24}, (_,i)=>`${i}:00`),
+        datasets: [{
+            label: 'Attacks',
+            data: Array.from({length:24}, ()=>random(10,50)),
+            borderColor: '#00f0ff',
+            backgroundColor: 'rgba(0,240,255,0.2)',
+            fill: true
+        }]
+    }
+});
+
+const severityChart = new Chart(document.getElementById("severityChart"), {
+    type: 'doughnut',
+    data: {
+        labels: severities,
+        datasets: [{
+            data: [15,25,35,25],
+            backgroundColor: ['#dc2626','#ef4444','#f59e0b','#10b981']
+        }]
+    }
+});
+
+const deviceChart = new Chart(document.getElementById("deviceChart"), {
+    type: 'bar',
+    data: {
+        labels: devices,
+        datasets: [{
+            label: 'Risk Level',
+            data: devices.map(()=>random(10,60)),
+            backgroundColor: '#00f0ff'
+        }]
+    }
+});
+
+setInterval(() => {
+    updateKPIs();
+    addAttackRow();
+    trendChart.data.datasets[0].data = trendChart.data.datasets[0].data.map(()=>random(10,50));
+    trendChart.update();
+    severityChart.data.datasets[0].data = [
+        random(5,20),
+        random(10,30),
+        random(20,40),
+        random(15,35)
+    ];
+    severityChart.update();
+    deviceChart.data.datasets[0].data = devices.map(()=>random(10,60));
+    deviceChart.update();
+}, 4000);
+
+updateKPIs();
+</script>
+
+</body>
+</html>

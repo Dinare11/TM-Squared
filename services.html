@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TM Squared </title>
+
+<link rel="stylesheet" href="services.css">
+<link rel="shortcut icon" href="logo.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+<style>
+  /*Hero Container*/
+  .hero-container {
+    max-width: 1000px;
+    margin-top: -0.2rem;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .hero-container header h1 {
+    font-size: 2.5rem;
+    margin: 25px;
+    color: #111;
+  }
+
+  .muted {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
+  }
+
+  .muted b {
+    color: #000;
+  }
+
+  .muted span {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+
+  .vacancies-hero {
+  background: rgba(30,30,50,0.85);
+  color: #fff;
+  padding: 5px 3px;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.vacancies-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #00ff00;
+}
+
+.vacancies-hero p {
+  max-width: 700px;
+  margin: auto;
+  opacity: 0.95;
+}
+
+    /* HERO SECTION */
+  .hero {
+    padding: 25px 15px;
+  }
+
+  .hero h1 {
+    font-size: 15px;
+  }
+
+  .hero p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  /* SECTION SPACING */
+  .section {
+    padding: 40px 15px;
+    margin-top: 0;
+  }
+
+  .section h2 {
+    font-size: 15px;
+  }
+
+  /* SLIDER FIX */
+  .slider {
+    max-width: 100%;
+  }
+
+  .slides {
+    gap: 10px;
+  }
+
+  .card {
+    min-width: 100%;
+    flex: 0 0 85%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .card-content {
+    padding: 18px;
+  }
+
+  .card-content h3 {
+    font-size: 16px;
+  }
+
+  .card-content p {
+    font-size: 13px;
+  }
+
+  /* ARROWS SMALLER */
+  .arrow {
+    font-size: 22px;
+    padding: 6px 10px;
+  }
+
+  .arrow.left {
+    left: 2px;
+  }
+
+  .arrow.right {
+    right: 2px;
+  }
+
+  /* DOTS */
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* IMAGE FIX */
+  .section img {
+    width: 120px;
+    height: auto;
+  }
+
+    /* GRID */
+    .grid-wrap{
+      padding:28px 20px 72px}
+    .grid{display:grid;
+      gap:var(--gap);
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      max-width:var(--container);
+      margin:0 auto}
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      transition:transform .28s cubic-bezier(.2,.9,.27,1),box-shadow .28s;
+      min-height:260px;
+      border:1px solid rgba(10,20,40,0.03);
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:0 14px 30px rgba(18,38,63,0.12)}
+
+    .card-media{
+      height:120px;
+      background:linear-gradient(135deg,#e0f2fe,#eef2ff);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#083344;font-size:28px
+    }
+    .card-content{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .card-title{font-size:16px;margin:0}
+    .card-text{color: black;font-size:13px;margin:0;flex:1}
+    .card-cta{display:flex;gap:8px;align-items:center}
+    .btn{display:inline-block;padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn-outline{border:1px solid rgba(15,23,42,0.06);background:transparent;color:var(--accent)}
+    .btn-primary{background:var(--accent);color:white}
+
+    /*Image source link*/
+    .section img {
+      margin-top: -1rem;
+      margin-bottom: -1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s;
+      vertical-align: middle;
+      border-radius: 50%;
+    }
+
+    .section img:hover {
+      transform: scale(1.1);
+    }
+
+/* Ensure slider relative positioning */
+.flicker-slider {
+  position: relative;
+}
+
+.section {
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: -6rem;
+}
+
+.section h2 {
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.slider {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.6s ease-in-out;
+}
+
+.card {
+    display: flex;
+    box-sizing: border-box;
+    padding: 40px;
+    min-width: 260px;
+    height: 340px;
+    flex: 0 0 300px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    color: white;
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-content h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.arrow.left { left: 5px; }
+.arrow.right { right: 5px; }
+
+.dots {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+    background: #64748b;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #22c55e;
+}
+
+/* Page Loader Overlay */
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Hide loader */
+#page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #0a58ca;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.create-btn {
+    background: #1a73e8;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Table Card */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 20px;
+}
+
+/* Controls */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.table-controls select,
+.table-controls input {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #1a73e8;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background: #f1f5ff;
+}
+
+/* Actions */
+.action-btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 4px;
+}
+
+.edit {
+    background: #6c757d;
+    color: #fff;
+}
+
+.delete {
+    background: #dc3545;
+    color: #fff;
+}
+
+.download {
+    color: #1a73e8;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 6px 10px;
+    margin-left: 4px;
+    background: #e9ecef;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination a.active {
+    background: #1a73e8;
+    color: #fff;
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- Page Loader -->
+<div id="page-loader">
+  <div class="spinner"></div>
+</div>
+
+
+  <!--Network Canvas-->
+
+  <canvas id="networkCanvas"></canvas>
+
+<!-- Navbar (same as index.html) -->
+<nav class="navbar">
+  <div class="brand">
+    <a href="index.html">
+      <img src="logo.ico" alt="Logo" width="80">
+    </a>
+
+  </div>
+  <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="services.html"><i class="fas fa-briefcase"></i> Services</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="insights.html"><i class="fas fa-newspaper"></i> News</a>
+    <a href="vacancies.html"><i class="fas fa-info-circle"></i> Vacancies</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="vacancies-hero">
+  <h1>Services</h1>
+</section>
+
+    <!--Main-->
+  <main>
+    <section id="home" class="hero-container">
+    <header>
+      <h1>What Sets Us Apart</h1>
+    </header>
+
+      <div class="muted">
+        <span><b>Intelligence-Based Approach:</b> We integrate strategic intelligence into every advisory service, ensuring comprehensive and holistic risk management.<br></span>
+        <span><b>Ethical and Transparent Practices:</b> Integrity, compliance, and accountability are the core principles guiding our work.<br></span>
+        <span><b>Professional Recognition:</b> Memberships with ACFE, IRMSA, and PSIRA reinforce our credibility and expertise within the industry.<br></span>
+        <span><b>Comprehensive Solutions:</b> TM Squared offers services spanning personnel vetting, cybersecurity, governance, and logistics under a single, unified approach.<br></span>
+        <span><b>Local and Global Insight:</b> We combine in-depth knowledge of South African regulations with international best practices to deliver robust solutions.<br></span>
+      </div>
+    </section>
+
+      <!-- Flicker Cards Slider -->
+<section class="flicker-slider">
+
+  <div class="flicker-track" id="flickerTrack">
+
+  <section class="section">
+    <h2>Verifications
+      <!--<img src="vetting.jpeg" alt="Core-Services" width="150" height="130">-->
+    </h2>
+<div class="slider" id="slider1">
+    <div class="slides"></div>
+    <div class="arrow left" onclick="prevSlide('slider1')">&#10094;</div>
+    <div class="arrow right" onclick="nextSlide('slider1')">&#10095;</div>
+    <div class="dots"></div>
+</div>
+</section>
+
+<section class="section">
+  <h2>Cybersecurity
+    <!--<img src="cyber2.jpg" alt="Cybersecurity" width="150" height="130">-->
+    </h2>
+
+<div class="slider" id="slider2">
+    <div class="slides"></div>
+    <div class="arrow left" onclick="prevSlide('slider2')">&#10094;</div>
+    <div class="arrow right" onclick="nextSlide('slider2')">&#10095;</div>
+    <div class="dots"></div>
+</div>
+</section>
+
+<section class="section">
+  <h2>Logistics
+  <!--<img src="logistics.jpg" alt="Logistics" width="150" height="130">-->
+    </h2>
+<div class="slider" id="slider3">
+    <div class="slides"></div>
+    <div class="arrow left" onclick="prevSlide('slider3')">&#10094;</div>
+    <div class="arrow right" onclick="nextSlide('slider3')">&#10095;</div>
+    <div class="dots"></div>
+</div>
+</section>
+
+<section class="section">
+        <a href="https://dinare11.github.io/Synergy-Ramatla/index.html" target="_blank"><h2>Synergy-Ramatla - IT Service</h2></a>
+            <img src="synergy.ico" alt="Synergy-Ramatla" width="150" height="130">
+        </a></h2>
+
+<div class="slider" id="slider4">
+    <div class="slides"></div>
+    <div class="arrow left" onclick="prevSlide('slider4')">&#10094;</div>
+    <div class="arrow right" onclick="nextSlide('slider4')">&#10095;</div>
+    <div class="dots"></div>
+
+</div>
+</section>
+
+  </main>
+
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-bottom">
+    <p>© 2023 TM Squared. All rights reserved.</p>
+  </div>
+</footer>
+
+<!--Canvas Animation-->
+
+  <script>
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Full-page sizing
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const nodesCount = 100;
+    const maxDistance = 150;
+
+    const nodes = [];
+
+    // Initialize nodes
+    for (let i = 0; i < nodesCount; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        radius: Math.random() * 3 + 1.5
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw nodes
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        // Bounce from edges
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ffff';
+        ctx.fill();
+      });
+
+      // Draw lines between nearby nodes
+      for (let i = 0; i < nodesCount; i++) {
+        for (let j = i + 1; j < nodesCount; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < maxDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0, 255, 255, ${1 - distance / maxDistance})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Update canvas on resize
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
+
+<script>
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Fade-in on scroll
+  const items = document.querySelectorAll('.about-content ul li');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('fade-in');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  items.forEach(item => {
+    observer.observe(item);
+  });
+</script>
+
+<!--Page Loader-->
+<script>
+  // Hide loader after page fully loads
+  window.addEventListener("load", () => {
+    document.getElementById("page-loader").classList.add("hidden");
+  });
+
+  // Show loader when navigating to another page
+  document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", event => {
+      const href = link.getAttribute("href");
+
+      // Ignore empty links, anchors, and external targets
+      if (!href || href.startsWith("#") || link.target === "_blank") return;
+
+      event.preventDefault();
+      document.getElementById("page-loader").classList.remove("hidden");
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
+    });
+  });
+</script>
+
+</script>
+
+<script>
+// =================== Simulated Live Data (API Example) ===================
+const liveData = {
+    slider1: [
+        {title: "Vetting", text: "Vetting and background checks for individuals."},
+        {title: "Checks", text: "Personnel Suitability Checks."},
+        {title: "Verification", text: "Company and director verification."}
+    ],
+    slider2: [
+        {title: "Vulnerability Assessment", text: "Cybersecurity."},
+        {title: "Threat Monitoring", text: "Threat and risk assessments."},
+        {title: "ICT Mitigation", text: "Information & ICT Security."},
+        {title: "Vulnerability Assessment", text: "Risk management advisory."},
+        {title: "Threat Monitoring", text: "Governance frameworks."},
+        {title: "Ethics", text: "Ethical-related investigations."},
+        {title: "EGR", text: "Ethics, Governance & Risk Management."},
+        {title: "Risk Mitigation", text: "Cyber risk management."},
+        {title: "Solutions", text: "ICT security solutions."},
+        {title: "Breaches", text: "Security breach investigations."},
+        {title: "Documentation", text: "Document security and classification."},
+        {title: "Audits", text: "Security audits."},
+        {title: "Policy", text: "Security policy development."}
+    ],
+    slider3: [
+        {title: "Compliance", text: "Strategic logistics solutions supporting compliance and security operations."},
+        {title: "Logistics", text: "TM Squared Logistics."},
+        
+    ],
+
+ slider4: [
+        {title: "System Installation", text: "Hardware & software deployment services."},
+        {title: "Cloud Solutions", text: "Secure scalable network infrastructure."},
+        {title: "Technical Support", text: "Reliable 24/7 IT assistance."},
+        {title: "Office Support", text: "Reliable office automation and related services."},
+        {title: "Physical Access Control", text: "IDS, IPS."},
+        {title: "Electrical Maintenance Support", text: "Relaible Electrical assistance."},
+        {title: "VoIP Installation", text: "IP Phones."}
+    ]
+};
+
+// Simulate fetching from server
+function fetchLiveContent(sliderId) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(liveData[sliderId]);
+        }, 800); // simulate loading delay
+    });
+}
+
+const sliders = {};
+
+async function initSlider(id) {
+    const slider = document.getElementById(id);
+    const slidesContainer = slider.querySelector('.slides');
+    const dotsContainer = slider.querySelector('.dots');
+
+    const data = await fetchLiveContent(id);
+
+    data.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <div class="card-content">
+                <h3>${item.title}</h3>
+                <p>${item.text}</p>
+            </div>`;
+        slidesContainer.appendChild(card);
+    });
+
+    sliders[id] = { index: 0, total: data.length, slides: slidesContainer };
+
+    data.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if(i === 0) dot.classList.add('active');
+        dot.onclick = () => goToSlide(id, i);
+        dotsContainer.appendChild(dot);
+    });
+
+    // Auto slide
+    setInterval(() => nextSlide(id), 4000);
+
+    addSwipeSupport(id);
+}
+
+function updateSlider(id) {
+    const sliderObj = sliders[id];
+    const slider = document.getElementById(id);
+    const dots = slider.querySelectorAll('.dot');
+
+    const slideWidth = slider.querySelector('.card').offsetWidth + 20;
+    sliderObj.slides.style.transform =
+        `translateX(-${sliderObj.index * slideWidth}px)`;
+
+    dots.forEach(dot => dot.classList.remove('active'));
+    if (dots[sliderObj.index]) {
+        dots[sliderObj.index].classList.add('active');
+    }
+}
+
+
+function nextSlide(id) {
+    sliders[id].index =
+        (sliders[id].index + 1) % sliders[id].total;
+    updateSlider(id);
+}
+
+function prevSlide(id) {
+    sliders[id].index =
+        (sliders[id].index - 1 + sliders[id].total) % sliders[id].total;
+    updateSlider(id);
+}
+
+function goToSlide(id, index) {
+    sliders[id].index = index;
+    updateSlider(id);
+}
+
+// =================== Swipe Support ===================
+function addSwipeSupport(id) {
+    const slider = document.getElementById(id);
+    let startX = 0;
+    let endX = 0;
+
+    slider.addEventListener("touchstart", e => {
+        startX = e.touches[0].clientX;
+    });
+
+    slider.addEventListener("touchend", e => {
+        endX = e.changedTouches[0].clientX;
+        handleSwipe(id);
+    });
+
+    function handleSwipe(id) {
+        if (startX - endX > 50) {
+            nextSlide(id);
+        } else if (endX - startX > 50) {
+            prevSlide(id);
+        }
+    }
+}
+
+// Initialize All
+initSlider('slider1');
+initSlider('slider2');
+initSlider('slider3');
+initSlider('slider4');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TM Squared </title>
+
+<link rel="stylesheet" href="index.css">
+<link rel="shortcut icon" href="logo.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+<style>
+  .vacancies-hero {
+  background: rgba(30,30,50,0.85);
+  color: white;
+  padding: 5px 3px;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.vacancies-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #00ff00;
+}
+
+.vacancies-hero p {
+  max-width: 700px;
+  margin: auto;
+  opacity: 0.95;
+}
+
+
+  /* IMAGE FIX */
+  .section img {
+    width: 120px;
+    height: auto;
+  }
+
+    /*Image source link*/
+    .section img {
+      margin-top: -1rem;
+      margin-bottom: -1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s;
+      vertical-align: middle;
+      border-radius: 50%;
+    }
+
+    .section img:hover {
+      transform: scale(1.1);
+    }
+
+
+/* Page Loader Overlay */
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Hide loader */
+#page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #0a58ca;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.create-btn {
+    background: #1a73e8;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+  <!-- Page Loader -->
+<div id="page-loader">
+  <div class="spinner"></div>
+</div>
+
+
+  <!--Network Canvas-->
+
+  <canvas id="networkCanvas"></canvas>
+
+<!-- Navbar (same as index.html) -->
+<nav class="navbar">
+  <div class="brand">
+    <a href="index.html">
+      <img src="logo.ico" alt="Logo" width="80">
+    </a>
+
+  </div>
+  <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="services.html"><i class="fas fa-briefcase"></i> Services</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="insights.html"><i class="fas fa-newspaper"></i> News</a>
+    <a href="vacancies.html"><i class="fas fa-info-circle"></i> Vacancies</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="vacancies-hero">
+  <h1>Company Profile</h1>
+</section>
+
+<main>
+   <!--Mission Vision Philosophy-->
+ <div class="container">
+    <!-- Introduction Section -->
+    <div class="section">
+      <div class="text-content">
+        <h2>Company Overview</h2>
+          <p>TM Squared Consulting and Services was founded in 2023 and officially registered in January 2025.
+            The company is built on a foundation of Strategic Security Intelligence, offering Security Advisory Services at both macro and micro levels.
+            TM Squared specializes in developing tailored solutions that address personnel vetting, information security, cybersecurity, governance, and logistics.
+             The leadership team is professionally recognized through memberships with ACFE (South Africa and International), IRMSA, and PSIRA. 
+          These affiliations ensure compliance with both local and international industry standards.</p>
+      </div>
+      <div>
+        <img src="logo.jpg" alt="TM Squared Image" width="450" height="150">
+      </div>
+    </div>
+
+    <!-- Mission / Vision / Philosophy Section -->
+    <div class="section reverse">
+      <div>
+        <img src="cyber5.jpg" alt="Team Image" width="150" height="170">
+      </div>
+      <div class="list-items">
+        <div class="list-item">
+          <div class="check-icon">&#10003;</div>
+          <div>
+            <h3>Mission</h3>
+            <p>Our mission is to empower organizations by providing intelligence-driven security advisory services. 
+                We strive to enhance resilience, safeguard assets, and promote ethical governance in all our engagements.</p>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="check-icon">&#10003;</div>
+          <div>
+            <h3>Vision</h3>
+            <p>We aspire to be Africa’s leading provider of strategic security intelligence, 
+                distinguished by innovation, integrity, and excellence in risk management.</p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</main>
+
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-bottom">
+    <p>© 2023 TM Squared. All rights reserved.</p>
+  </div>
+</footer>
+
+<!--Canvas Animation-->
+
+  <script>
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Full-page sizing
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const nodesCount = 100;
+    const maxDistance = 150;
+
+    const nodes = [];
+
+    // Initialize nodes
+    for (let i = 0; i < nodesCount; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        radius: Math.random() * 3 + 1.5
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw nodes
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        // Bounce from edges
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ffff';
+        ctx.fill();
+      });
+
+      // Draw lines between nearby nodes
+      for (let i = 0; i < nodesCount; i++) {
+        for (let j = i + 1; j < nodesCount; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < maxDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0, 255, 255, ${1 - distance / maxDistance})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Update canvas on resize
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
+
+<script>
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Fade-in on scroll
+  const items = document.querySelectorAll('.about-content ul li');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('fade-in');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  items.forEach(item => {
+    observer.observe(item);
+  });
+</script>
+
+<!--Page Loader-->
+<script>
+  // Hide loader after page fully loads
+  window.addEventListener("load", () => {
+    document.getElementById("page-loader").classList.add("hidden");
+  });
+
+  // Show loader when navigating to another page
+  document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", event => {
+      const href = link.getAttribute("href");
+
+      // Ignore empty links, anchors, and external targets
+      if (!href || href.startsWith("#") || link.target === "_blank") return;
+
+      event.preventDefault();
+      document.getElementById("page-loader").classList.remove("hidden");
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
+    });
+  });
+</script>
+
+</body>
+</html>
